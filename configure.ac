@@ -4651,6 +4651,7 @@ AC_CONFIG_FILES([
 	src/agent/subagents/ubntlw/Makefile
 	src/agent/subagents/ups/Makefile
 	src/agent/subagents/vmgr/Makefile
+	src/agent/subagents/wineventgen/Makefile
 	src/agent/subagents/winnt/Makefile
 	src/agent/subagents/winperf/Makefile
 	src/agent/subagents/wmi/Makefile

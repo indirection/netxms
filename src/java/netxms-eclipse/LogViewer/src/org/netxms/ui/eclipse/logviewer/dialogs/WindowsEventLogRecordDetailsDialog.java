@@ -135,6 +135,7 @@ public class WindowsEventLogRecordDetailsDialog extends Dialog
    {
       String result = "";
       try {
+         System.out.println(text);
          StringWriter stringWriter = new StringWriter();
          StreamResult xmlOutput = new StreamResult(stringWriter);
          TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -145,7 +146,8 @@ public class WindowsEventLogRecordDetailsDialog extends Dialog
          transformer.transform(new StreamSource(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8))), xmlOutput);
          result = xmlOutput.getWriter().toString();
      } catch (Exception e) {
-        throw new RuntimeException(e);
+        e.printStackTrace();
+        result = text;
      }
      return result;
    }
