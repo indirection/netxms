@@ -34,7 +34,8 @@ Export-Package: org.netxms.client,
  org.netxms.client.xml
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.8.0",
  org.netxms.ui.base;bundle-version="4.0.0",
- org.slf4j.api;bundle-version="1.7.10"
+ org.slf4j.api;bundle-version="1.7.10",
+ org.eclipse.swt
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.netxms.client.plugin.Activator
 Automatic-Module-Name: org.netxms.ui.eclipse.clientlibrary
