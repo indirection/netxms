@@ -4719,29 +4719,6 @@ AC_CONFIG_FILES([
 	src/server/Makefile
 	src/server/core/Makefile
 	src/server/drivers/Makefile
-	src/server/drivers/at/Makefile
-	src/server/drivers/avaya/Makefile
-	src/server/drivers/cambium/Makefile
-	src/server/drivers/cisco/Makefile
-	src/server/drivers/dell-pwc/Makefile
-	src/server/drivers/dlink/Makefile
-	src/server/drivers/extreme/Makefile
-	src/server/drivers/hpe/Makefile
-	src/server/drivers/huawei/Makefile
-	src/server/drivers/ignitenet/Makefile
-	src/server/drivers/juniper/Makefile
-	src/server/drivers/mikrotik/Makefile
-	src/server/drivers/moxa/Makefile
-	src/server/drivers/net-snmp/Makefile
-	src/server/drivers/netonix/Makefile
-	src/server/drivers/ping3/Makefile
-	src/server/drivers/qtech-olt/Makefile
-	src/server/drivers/rittal/Makefile
-	src/server/drivers/saf/Makefile
-	src/server/drivers/symbol-ws/Makefile
-	src/server/drivers/tb/Makefile
-	src/server/drivers/ubnt/Makefile
-	src/server/drivers/westerstrand/Makefile
 	src/server/hdlink/Makefile
 	src/server/hdlink/jira/Makefile
 	src/server/hdlink/redmine/Makefile
