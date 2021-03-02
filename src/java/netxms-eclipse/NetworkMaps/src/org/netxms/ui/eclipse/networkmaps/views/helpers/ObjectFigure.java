@@ -21,6 +21,8 @@ package org.netxms.ui.eclipse.networkmaps.views.helpers;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.netxms.client.NXCSession;
@@ -67,8 +69,49 @@ public abstract class ObjectFigure extends Figure
 				moved = true;
 			}
 		});
+		
+		addMouseMotionListener(new MouseMotionListener() {
+         
+         @Override
+         public void mouseMoved(MouseEvent me)
+         {
+            // TODO Auto-generated method stub
+            
+         }
+         
+         @Override
+         public void mouseHover(MouseEvent me)
+         {
+            IFigure toolTip = getToolTip();       
+            if (toolTip != null && toolTip instanceof ObjectTooltip)
+            {
+               ((ObjectTooltip)toolTip).updateLastValues();
+            }
+         }
+         
+         @Override
+         public void mouseExited(MouseEvent me)
+         {
+            // TODO Auto-generated method stub
+            
+         }
+         
+         @Override
+         public void mouseEntered(MouseEvent me)
+         {
+            // TODO Auto-generated method stub
+            
+         }
+         
+         @Override
+         public void mouseDragged(MouseEvent me)
+         {
+            // TODO Auto-generated method stub
+            
+         }
+      });
 	}
-	
+
    /* (non-Javadoc)
 	 * @see org.eclipse.draw2d.Figure#setToolTip(org.eclipse.draw2d.IFigure)
 	 */
