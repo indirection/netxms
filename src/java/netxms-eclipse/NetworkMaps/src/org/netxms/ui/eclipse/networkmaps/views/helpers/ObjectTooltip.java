@@ -1,6 +1,6 @@
 /**
  * NetXMS - open source network management system
- * Copyright (C) 2003-2020 Victor Kirhenshtein
+ * Copyright (C) 2003-2021 Victor Kirhenshtein
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,6 +62,7 @@ public class ObjectTooltip extends Figure
    private int index;
    private AbstractObject object;
    private MapLabelProvider labelProvider;
+   private long refreshTimestamp = 0;
 
 	/**
 	 * @param object
@@ -190,17 +191,23 @@ public class ObjectTooltip extends Figure
 			page.add(text);
 		}
 	}
-	
-	public void updateLastValues()
-	{
+
+   /**
+    * Refresh tooltip
+    */
+   public void refresh()
+   {
+      long now = System.currentTimeMillis();
+      if (now < refreshTimestamp + 15000)
+         return;
+
+      refreshTimestamp = now;
 	   if (labelProvider.getObjectFigureType() == MapObjectDisplayMode.LARGE_LABEL)
-	   {
 	      return;
-	   }
 	   
       final NXCSession session = ConsoleSharedData.getSession();
       final long nodeId = object.getObjectId();
-      ConsoleJob job = new ConsoleJob("", null, Activator.PLUGIN_ID, null) {
+      ConsoleJob job = new ConsoleJob("Get DCI data for object tooltip", null, Activator.PLUGIN_ID, null) {
          @Override
          protected void runInternal(IProgressMonitor monitor) throws Exception
          {
@@ -211,36 +218,30 @@ public class ObjectTooltip extends Figure
                   @Override
                   public void run()
                   {
-                     if (object instanceof Node)
+                     if ((object instanceof Node) && (values != null) && (values.length > 0))
                      {
-                        if ((values != null) && (values.length > 0))
-                        {
-                           if (lastValuesFigure != null)
-                              remove(lastValuesFigure);
-                           lastValuesFigure = new NodeLastValuesFigure(values);
-                           GridData gd = new GridData();
-                           gd.horizontalSpan = 2;
-                           System.out.println(index);
-                           add(lastValuesFigure, gd, index);
-                           layout();
-                           invalidateTree();
-                           revalidate();
-                           repaint();
-                        }
-                     }                     
+                        if (lastValuesFigure != null)
+                           remove(lastValuesFigure);
+                        lastValuesFigure = new NodeLastValuesFigure(values);
+                        GridData gd = new GridData();
+                        gd.horizontalSpan = 2;
+                        add(lastValuesFigure, gd, index);
+                        layout();
+                        labelProvider.getViewer().resizeToolTipShell();
+                     }
                   }
                });
             }
             catch(Exception e)
             {
-               //Activator.log("Exception in last values overview element", e); //$NON-NLS-1$
+               Activator.logError("Exception while reading data for object tooltip", e); //$NON-NLS-1$
             }
          }
          
          @Override
          protected String getErrorMessage()
          {
-            return "";
+            return null;
          }
       };
       job.setUser(false);
